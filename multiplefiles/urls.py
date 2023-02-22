@@ -5,6 +5,8 @@ urlpatterns = [
     path('', FileUploadView, name='file'),
     path('file/', filesDetailView, name="file_detail"),
     path('login/', loginView, name="Login"),
+    path('logout/', loginView, name="logout"),
+
 
     path('media/files__/<str:file>', secureView, name='secure')
 ]

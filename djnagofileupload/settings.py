@@ -133,7 +133,7 @@ MEDIA_URL = '/media/'
 # django session timeout
 
 AUTO_LOGOUT = {
-        'IDLE_TIME':20,
+        'IDLE_TIME':10,
         'REDIRECT_TO_LOGIN_IMMEDIATELY':True,
         'MESSAGE':'The session has expired please login again to continue'
                }

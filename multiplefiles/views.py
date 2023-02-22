@@ -9,6 +9,10 @@ from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+def logoutView(request):
+     logout(request)
+     return redirect('Login')
+
 def loginView(request):
      if request.method=="POST":
           username = request.POST['username']
@@ -17,6 +21,7 @@ def loginView(request):
           if user:
                login(request, user)
                messages.success(request, 'Login successfully.')
+               return redirect('/')
           messages.error(request,'Invalid username or password')
      return render(request, 'login.html')
 
