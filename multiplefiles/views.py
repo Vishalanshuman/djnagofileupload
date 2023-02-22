@@ -1,12 +1,24 @@
 from django.http import FileResponse
+from django.contrib import messages
+from django.contrib.auth import login, logout, authenticate
 import os
 from django.shortcuts import render, HttpResponse
 from .forms import MultipleFileForm
 from . models import FileModel
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+def loginView(request):
+     if request.method=="POST":
+          username = request.POST['username']
+          password = request.POST['password']
+          user = authenticate(username=username, password=password)
+          if user:
+               login(request, user)
+               messages.success(request, 'Login successfully.')
+          messages.error(request,'Invalid username or password')
+     return render(request, 'login.html')
 
 def FileUploadView(request):
     if request.method == "POST":
@@ -39,7 +51,7 @@ def filesDetailView(request):
 
 @login_required
 def secureView(request, file):
-    document = get_object_or_404(FileModel, files='files__/'+file)
-    files, file_name = os.path.split(file)
-    response = FileResponse(document.files)
-    return response
+        document = get_object_or_404(FileModel, files='files__/'+file)
+        files, file_name = os.path.split(file)
+        response = FileResponse(document.files)
+        return response

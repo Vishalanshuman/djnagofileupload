@@ -49,6 +49,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+
+    'django_auto_logout.middleware.auto_logout',
 ]
 
 ROOT_URLCONF = "djnagofileupload.urls"
@@ -64,6 +66,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                'django_auto_logout.context_processors.auto_logout_client'
             ],
         },
     },
@@ -125,3 +128,12 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+
+# django session timeout
+
+AUTO_LOGOUT = {
+        'IDLE_TIME':20,
+        'REDIRECT_TO_LOGIN_IMMEDIATELY':True,
+        'MESSAGE':'The session has expired please login again to continue'
+               }
